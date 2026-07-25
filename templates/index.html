@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScamShield AI - Interactive Cyber Security Hub</title>
+
+    <!-- Google Fonts: Outfit for Headings, Inter for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 CDN & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom Premium Stylesheet -->
+    <style>
+        :root {
+            --bg-color: #080c14;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-glow: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --safe-color: #00e676;
+            --warn-color: #ffb300;
+            --danger-color: #ff1744;
+            --text-main: #f3f4f6;
+            --text-secondary: #9ca3af;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background: linear-gradient(135deg, rgba(8, 12, 20, 0.88), rgba(15, 23, 42, 0.92)), url('/static/images/cyber_matrix_bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .display-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Animated Pulsing Shield & Hero Wallpaper */
+        .hero-section {
+            padding: 55px 20px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, rgba(8, 12, 20, 0.65), rgba(15, 23, 42, 0.88)), url('/static/images/hero_cyber_shield_bg.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 242, 254, 0.12);
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .shield-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .shield-icon {
+            font-size: 4rem;
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.5));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .shield-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 242, 254, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse 2.5s infinite;
+        }
+
+        /* Glassmorphism Card Design */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.1);
+        }
+
+        .card-header-styled {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .card-body-styled {
+            padding: 25px;
+        }
+
+        /* Status Pill */
+        .status-badge {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--safe-color);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--safe-color);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--safe-color);
+            animation: blink 1.5s infinite;
+        }
+
+        /* Form Inputs Styling */
+        .form-control-cyber {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: #fff !important;
+            padding: 12px 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control-cyber:focus {
+            background-color: rgba(255, 255, 255, 0.06);
+            border-color: #00f2fe;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
+            outline: none;
+        }
+
+        .form-control-cyber::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Glowing Action Buttons */
+        .btn-cyber {
+            background: var(--primary-glow);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 12px 24px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-cyber:hover {
+            color: #000;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+            cursor: pointer;
+        }
+
+        /* Drag & Drop File Upload Zone */
+        .upload-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.01);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: #00f2fe;
+            background: rgba(0, 242, 254, 0.03);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Circular Gauge for Risk Score */
+        .gauge-wrap {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .risk-gauge-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .risk-gauge {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .risk-gauge circle {
+            fill: none;
+            stroke-width: 8;
+        }
+
+        .risk-gauge circle.bg {
+            stroke: rgba(255, 255, 255, 0.08);
+        }
+
+        .risk-gauge circle.meter {
+            stroke: var(--safe-color);
+            stroke-linecap: round;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1), stroke 1s ease;
+        }
+
+        .risk-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Result Display Styles */
+        .result-box-cyber {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 5px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-box-cyber.safe {
+            border-left-color: var(--safe-color);
+            background: rgba(0, 230, 118, 0.03);
+        }
+
+        .result-box-cyber.warning {
+            border-left-color: var(--warn-color);
+            background: rgba(255, 179, 0, 0.03);
+        }
+
+        .result-box-cyber.danger {
+            border-left-color: var(--danger-color);
+            background: rgba(255, 23, 68, 0.03);
+        }
+
+        /* Chatbot Interface Styling */
+        .chatbot-container {
+            height: 580px;
+            display: flex;
+            flex-column: column;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-history {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: slideUp 0.3s ease;
+        }
+
+        .chat-bubble.bot {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background: var(--primary-glow);
+            color: #000;
+            font-weight: 500;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15);
+        }
+
+        /* Loader Animations */
+        .cyber-loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0, 242, 254, 0.1);
+            border-radius: 50%;
+            border-top-color: #00f2fe;
+            animation: spin 1s ease infinite;
+        }
+
+        /* Animations Definition */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroller styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 242, 254, 0.4);
+        }
+
+        /* Custom styles for Radar & Subscription */
+        .btn-cyber-outline {
+            background: transparent;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: #00f2fe;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 8px 16px;
+            transition: all 0.3s;
+        }
+        .btn-cyber-outline:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+            color: #fff;
+            cursor: pointer;
+        }
+        .radar-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 15px auto;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, rgba(8, 12, 20, 0.9) 80%);
+            border: 2px solid rgba(0, 242, 254, 0.15);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .radar-sweep {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(from 0deg, transparent 75%, rgba(0, 242, 254, 0.3) 100%);
+            border-radius: 50%;
+            transform-origin: center;
+            animation: sweep-rotation 3s linear infinite;
+            animation-play-state: paused;
+        }
+        .radar-sweep.active {
+            animation-play-state: running;
+        }
+        .radar-ping {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff1744;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ff1744;
+            display: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: ping-blink 0.8s infinite alternate;
+        }
+        @keyframes sweep-rotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes ping-blink {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+        .badge-premium-pro {
+            background: linear-gradient(135deg, #7000ff 0%, #00f2fe 100%);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Cyber Node Particle Background Canvas Overlay -->
+    <canvas id="bgParticleCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; opacity: 0.35;"></canvas>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg border-bottom border-secondary border-opacity-10 py-3" style="background: rgba(8, 12, 20, 0.5); backdrop-filter: blur(12px);">
+        <div class="container">
+            <span class="navbar-brand fw-bold" style="background: var(--primary-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Outfit', sans-serif;">
+                <i class="bi bi-shield-shaded me-2"></i>SCAMSHIELD CORE
+            </span>
+            <div class="ms-auto" id="premiumStatusArea">
+                <button class="btn btn-sm btn-cyber" data-bs-toggle="modal" data-bs-target="#premiumModal" id="btnGoPremiumNav">
+                    <i class="bi bi-gem me-1"></i>Go Premium
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="hero-section">
+        <div class="shield-container">
+            <i class="bi bi-shield-lock-fill shield-icon"></i>
+            <div class="shield-pulse"></div>
+        </div>
+        <h1 class="display-5 fw-bold mb-2">ScamShield <span
+                style="background: var(--primary-glow); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI</span>
+        </h1>
+        <p class="text-secondary lead mx-auto" style="max-width: 600px;">Protecting your digital world in real-time.
+            Scan URLs, detect screenshot threats, analyze phishing text, and chat with safety experts.</p>
+
+        <div class="mt-3">
+            <span class="status-badge">
+                <span class="status-dot"></span>
+                <span>ScamShield Engine Core: Online</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- Main Navigation Pills for Cyber Hub & UEBA Insider Threat -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="nav nav-pills custom-cyber-pills p-1" style="background: rgba(17, 24, 39, 0.8); border: 1px solid var(--border-color); border-radius: 50px;">
+                <button class="nav-link active px-4 py-2 rounded-pill fw-bold text-white" id="tab-external-btn" onclick="switchMainTab('external')">
+                    <i class="bi bi-shield-x me-2 text-info"></i>External Threat Hub
+                </button>
+                <button class="nav-link px-4 py-2 rounded-pill fw-bold text-white ms-2" id="tab-ueba-btn" onclick="switchMainTab('ueba')">
+                    <i class="bi bi-person-bounding-box me-2 text-warning"></i>Insider Threat UEBA
+                </button>
+            </div>
+        </div>
+
+        <!-- External Cyber Threat View -->
+        <div id="externalThreatView">
+            <div class="row">
+
+            <!-- Left Side: Analysers -->
+            <div class="col-lg-7">
+
+                <!-- Text / Message Scanner -->
+                <div class="glass-card">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-chat-left-quote text-info me-2"></i> Message & Job Post
+                            Scanner</h5>
+                        <span class="badge bg-secondary opacity-75">AI Analyzed</span>
+                    </div>
+                    <div class="card-body-styled">
+                        <textarea id="textInput" class="form-control form-control-cyber mb-3" rows="4"
+                            placeholder="Paste suspicious SMS, WhatsApp message, email draft, or job advertisement text here..."></textarea>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-cyber" id="textBtn" onclick="analyzeText()">
+                                <i class="bi bi-search"></i>
+                                <span>Scan Message</span>
+                            </button>
+                            <div class="cyber-loader" id="textLoader"></div>
+                        </div>
+
+                        <!-- Result Section -->
+                        <div id="textResult" class="result-box-cyber">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phishing Website Trust Checker -->
+                <div class="glass-card">
+                    <div class="card-header-styled">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-globe2 text-info me-2"></i> Phishing Website / Link
+                            Trust Checker</h5>
+                    </div>
+                    <div class="card-body-styled">
+                        <div class="input-group gap-2">
+                            <input type="text" id="urlInput" class="form-control form-control-cyber"
+                                placeholder="Enter link, e.g., https://secure-bank-login.xyz">
+                            <button class="btn btn-cyber" id="urlBtn" onclick="analyzeUrl()">
+                                <i class="bi bi-shield-check"></i>
+                                <span>Check URL</span>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <div class="cyber-loader" id="urlLoader"></div>
+                        </div>
+
+                        <!-- Result Section -->
+                        <div id="urlResult" class="result-box-cyber">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screenshot Scam Scanner -->
+                <div class="glass-card">
+                    <div class="card-header-styled">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-camera text-info me-2"></i> Screenshot Scam & OCR
+                            Detector</h5>
+                    </div>
+                    <div class="card-body-styled">
+
+                        <!-- Drag-and-drop Zone -->
+                        <div class="upload-zone mb-3" id="uploadZone"
+                            onclick="document.getElementById('imageInput').click()">
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;"
+                                onchange="handleImageFileSelect(event)">
+                            <div id="uploadPrompt">
+                                <i class="bi bi-cloud-arrow-up fs-2 text-info mb-2 d-block"></i>
+                                <span class="fw-semibold text-light">Drag & drop a screenshot</span> or <span
+                                    class="text-info">browse device</span>
+                                <p class="text-secondary small mt-1">Supports PNG, JPG, JPEG (WhatsApp chats, SMS,
+                                    emails)</p>
+                            </div>
+                            <div id="previewWrapper" class="d-none">
+                                <img id="imagePreview" src="" alt="Scan Preview">
+                                <p class="text-info small mt-2 mb-0"><i class="bi bi-check-circle"></i> Screenshot
+                                    loaded successfully</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-cyber" id="imageBtn" onclick="analyzeImage()">
+                                <i class="bi bi-eye"></i>
+                                <span>Read & Analyze Screenshot</span>
+                            </button>
+                            <div class="cyber-loader" id="imageLoader"></div>
+                        </div>
+
+                        <!-- Result Section -->
+                        <div id="imageResult" class="result-box-cyber">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 📱 NEW: QR Code Phishing (Quishing) Scanner Card -->
+                <div class="glass-card mt-4">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-qr-code-scan text-info me-2"></i> QR Code Phishing (Quishing) Scanner</h5>
+                        <span class="badge bg-warning bg-opacity-20 text-warning extra-small">Upload Image or Paste QR URL</span>
+                    </div>
+                    <div class="card-body-styled">
+                        <!-- Drag-and-drop Image File Upload Zone for QR Codes -->
+                        <div class="upload-zone mb-3" id="qrUploadZone" onclick="document.getElementById('qrFileInput').click()">
+                            <input type="file" id="qrFileInput" accept="image/*" style="display: none;" onchange="handleQrImageFileSelect(event)">
+                            <div id="qrUploadPrompt">
+                                <i class="bi bi-qr-code-scan fs-1 text-info mb-2 d-block"></i>
+                                <span class="fw-semibold text-light">Click to Upload QR Code Image</span> or <span class="text-info">Drag & Drop QR Image</span>
+                                <p class="text-secondary small mt-1">Supports PNG, JPG, JPEG (Scan posters, restaurant QR menus, email attachments)</p>
+                            </div>
+                            <div id="qrPreviewWrapper" class="d-none text-center">
+                                <img id="qrImagePreview" src="" alt="QR Preview" style="max-height: 150px;" class="rounded border border-secondary mb-2">
+                                <p class="text-info extra-small mb-0"><i class="bi bi-check-circle-fill me-1"></i>QR Image Loaded & Payload Extracted</p>
+                            </div>
+                        </div>
+
+                        <!-- Sample QR Code Quick Testers -->
+                        <div class="mb-2">
+                            <label class="extra-small text-secondary mb-1">Quick Sample QR Testers</label>
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                <button class="btn btn-sm btn-outline-danger extra-small py-1" onclick="document.getElementById('qrPayloadInput').value = 'https://secure-login-verify-account-update.xyz/auth'; scanQrCode();">
+                                    🚨 Phishing QR (.xyz)
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning extra-small py-1 text-dark" onclick="document.getElementById('qrPayloadInput').value = 'WIFI:S:Free_Airport_WiFi;P:fake_pass_123;T:WPA;;'; scanQrCode();">
+                                    ⚠️ Fake Airport WiFi QR
+                                </button>
+                                <button class="btn btn-sm btn-outline-success extra-small py-1" onclick="document.getElementById('qrPayloadInput').value = 'https://www.chase.com/personal/banking'; scanQrCode();">
+                                    ✅ Verified Bank QR
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-2 gap-2">
+                            <input type="text" id="qrPayloadInput" class="form-control form-control-cyber" value="https://secure-login-verify-account-update.xyz/auth" placeholder="Extracted QR payload URL/Data or paste link...">
+                            <button class="btn btn-cyber" onclick="scanQrCode()">
+                                <i class="bi bi-shield-check me-1"></i>
+                                <span>Scan Payload</span>
+                            </button>
+                        </div>
+                        <div id="qrResult" class="result-box-cyber">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🌐 NEW: Scammer IP & Node Hop Tracking System Card -->
+                <div class="glass-card mt-4">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-diagram-3-fill text-danger me-2"></i> Scammer IP Node & Network Hop Tracker</h5>
+                        <span class="badge bg-danger bg-opacity-20 text-danger extra-small">Live Node Routing Trace</span>
+                    </div>
+                    <div class="card-body-styled">
+                        <div class="input-group mb-3 gap-2">
+                            <input type="text" id="scammerTrackInput" class="form-control form-control-cyber" value="185.220.101.5" placeholder="Enter suspect Scammer IP / Domain / Phone Node...">
+                            <button class="btn btn-cyber" onclick="trackScammerNode()">
+                                <i class="bi bi-crosshair"></i>
+                                <span>Trace Scammer Node</span>
+                            </button>
+                        </div>
+
+                        <!-- Scammer Hop Network Canvas Visualizer -->
+                        <div class="position-relative mb-2">
+                            <canvas id="scammerTrackingCanvas" width="650" height="180" class="w-100 rounded border border-secondary border-opacity-20" style="background: #080c14;"></canvas>
+                        </div>
+
+                        <div id="scammerTrackResult" class="extra-small text-secondary">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threat Origin Radar Tracker Card -->
+                <div class="glass-card mt-4" id="radarCard" style="display: none;">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-radar text-info me-2"></i> Scammer Origin Geolocation Radar</h5>
+                        <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-30" style="font-size: 0.8rem;" id="radarStatusBadge">Honeypot Active</span>
+                    </div>
+                    <div class="card-body-styled text-center">
+                        <div class="radar-container mb-3">
+                            <div class="radar-sweep" id="radarSweep"></div>
+                            <div class="radar-ping" id="radarPing"></div>
+                        </div>
+                        
+                        <!-- Radar console status log -->
+                        <div class="p-3 rounded bg-dark bg-opacity-50 border border-secondary border-opacity-10 text-start font-monospace small text-light" style="max-height: 150px; overflow-y: auto; font-family: monospace;" id="radarConsole">
+                            <div class="text-secondary">[Radar Console]: Awaiting Threat origin coordinates...</div>
+                        </div>
+                        
+                        <!-- Resolved Location Details -->
+                        <div id="radarResults" class="mt-3 text-start" style="display: none;">
+                            <div class="row text-light">
+                                <div class="col-md-6 mb-2">
+                                    <div class="text-secondary extra-small fw-bold" style="font-size: 0.75rem;">RESOLVED COUNTRY</div>
+                                    <span class="fw-bold" id="radarCountry">-</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="text-secondary extra-small fw-bold" style="font-size: 0.75rem;">CITY / PROXY HUB</div>
+                                    <span class="fw-bold" id="radarCity">-</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="text-secondary extra-small fw-bold" style="font-size: 0.75rem;">GEO COORDINATES</div>
+                                    <span class="fw-bold text-info" id="radarGeo">-</span>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="text-secondary extra-small fw-bold" style="font-size: 0.75rem;">RESOLVED IP ADDR</div>
+                                    <span class="fw-bold text-warning" id="radarIp">-</span>
+                                </div>
+                                <div class="col-12">
+                                    <div class="text-secondary extra-small fw-bold" style="font-size: 0.75rem;">ISP / ROUTING NETWORK</div>
+                                    <span class="fw-bold text-light" id="radarIsp">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Cyber Safety Chatbot Companion -->
+            <div class="col-lg-5">
+                <div class="glass-card sticky-top" style="top: 20px;">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-info bg-opacity-10 p-2 rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i class="bi bi-robot text-info fs-5"></i>
+                            </div>
+                            <div>
+                                <h5 class="m-0 fw-bold">Safety Companion</h5>
+                                <small class="text-secondary">ScamShield Cyber Agent</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-1">
+                            <button class="btn btn-sm btn-outline-secondary opacity-75" id="speakToggleBtn" onclick="toggleSpeechOutput()" title="Toggle Voice Responses (Voice Out)"><i class="bi bi-volume-up-fill text-info"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary opacity-50" onclick="clearChat()"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="card-body-styled chatbot-container">
+                        <!-- Message History -->
+                        <div id="chatHistory" class="chat-history">
+                            <div class="chat-bubble bot">
+                                <strong>Hello! I am your Cyber Safety Agent.</strong>
+                                <p class="m-0 mt-1">Are you suspicious of a transaction, OTP request, phone call, or
+                                    delivery package message? Tell me what happened, and I will guide you safely.</p>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Box -->
+                        <div class="input-group gap-2">
+                            <button class="btn btn-cyber-outline px-3" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input (Speech-to-Text)">
+                                <i class="bi bi-mic-fill"></i>
+                            </button>
+                            <input type="text" id="chatInput" class="form-control form-control-cyber"
+                                placeholder="Ask questions, e.g., 'A delivery driver is demanding OTP...'"
+                                onkeypress="handleChatEnter(event)">
+                            <button class="btn btn-cyber px-4" onclick="sendChatMessage()">
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Row for Interactive Threat Sandbox (Full Width at the end) -->
+        <div class="row mt-4 mb-4">
+            <div class="col-12">
+                <div class="glass-card">
+                    <div class="card-header-styled d-flex align-items-center justify-content-between">
+                        <h5 class="m-0 fw-bold"><i class="bi bi-cpu text-info me-2"></i> Interactive Threat & Risk Sandbox</h5>
+                        <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-30">Virtual Environment</span>
+                    </div>
+                    <div class="card-body-styled">
+                        <p class="text-secondary small">Select a malware or phishing template below to dynamically execute it in a secure virtual sandbox, monitoring file entropy logs and memory write activity in real-time.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label class="form-label small text-secondary fw-bold">SELECT SUSPICIOUS THREAT TEMPLATE</label>
+                                <select class="form-select form-select-cyber mb-3" id="sandboxTemplateSelect" onchange="handleSandboxTemplateChange()">
+                                    <option value="otp_harvester">Fake OTP Harvester Code (Free)</option>
+                                    <option value="ransomware">Ransomware PDF Script (Free)</option>
+                                    <option value="phishing_redirect">Phishing Redirection Anchor (Free)</option>
+                                    <option value="custom">-- Custom Custom Payload Code (Requires PRO) --</option>
+                                </select>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label small text-secondary fw-bold">PAYLOAD CODE / RAW URL INPUT</label>
+                                    <textarea class="form-control form-control-cyber font-monospace small" id="sandboxCodeArea" rows="6" readonly placeholder="Select a preset template or upgrade to PRO to insert custom malicious code snippets for execution..."></textarea>
+                                </div>
+                                
+                                <button class="btn btn-cyber w-100 py-3" id="btnDetonateSandbox" onclick="detonateThreatSandbox()">
+                                    <i class="bi bi-lightning-fill me-2"></i>Detonate Payload inside Sandbox
+                                </button>
+                            </div>
+                            
+                            <div class="col-md-7">
+                                <div class="d-flex flex-column h-100">
+                                    <label class="form-label small text-secondary fw-bold">LIVE EMULATION LOGS (VIRTUAL MACHINE FEED)</label>
+                                    <div class="p-3 rounded bg-dark bg-opacity-70 border border-secondary border-opacity-15 font-monospace small flex-grow-1 text-light overflow-y-auto mb-3" style="min-height: 250px; max-height: 280px; font-family: monospace;" id="sandboxTerminal">
+                                        <div class="text-secondary">[Sandbox System]: Console listening. Press Detonate to boot isolated VM container...</div>
+                                    </div>
+                                    
+                                    <!-- Detonation Results Card -->
+                                    <div id="sandboxResultsCard" class="p-3 rounded border border-secondary border-opacity-15" style="display: none; background: rgba(8, 12, 20, 0.6);">
+                                        <div class="d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-15 pb-2 mb-2">
+                                            <div class="fw-bold text-light" id="sandboxResultVerdict">-</div>
+                                            <span class="badge" id="sandboxResultScoreBadge">-</span>
+                                        </div>
+                                        <div class="text-secondary small fw-semibold mb-1">Dynamic Behavioral Findings:</div>
+                                        <ul class="list-unstyled d-flex flex-column gap-1 m-0 text-light small" id="sandboxResultReasons">
+                                            <!-- Populated dynamically -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div> <!-- End of External Threat View -->
+
+        <!-- Insider Threat UEBA Dashboard View -->
+        <div id="uebaThreatView" style="display: none;">
+            <!-- UEBA System Header & Quick Stats -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="glass-card p-3 text-center">
+                        <div class="text-secondary small fw-bold text-uppercase">MONITORED ENTITIES</div>
+                        <h2 class="fw-bold my-1 text-info" id="uebaStatUsers">5 Users</h2>
+                        <span class="badge bg-info bg-opacity-20 text-info small">Behavioral Profiles Active</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-3 text-center">
+                        <div class="text-secondary small fw-bold text-uppercase">TOTAL ALERTS</div>
+                        <h2 class="fw-bold my-1 text-warning" id="uebaStatAlerts">0</h2>
+                        <span class="badge bg-warning bg-opacity-20 text-warning small" id="uebaStatCritical">0 Critical</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-3 text-center">
+                        <div class="text-secondary small fw-bold text-uppercase">FALSE POSITIVE RATE</div>
+                        <h2 class="fw-bold my-1 text-success" id="uebaStatFpRate">0.0%</h2>
+                        <span class="badge bg-success bg-opacity-20 text-success small" id="uebaStatFpCount">Low FP Design Active</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-3 text-center">
+                        <div class="text-secondary small fw-bold text-uppercase">ANOMALY ENGINE</div>
+                        <h2 class="fw-bold my-1 text-primary" style="font-size: 1.1rem; line-height: 1.8rem;"><i class="bi bi-cpu-fill me-1"></i>Z-Score + Peer ML</h2>
+                        <span class="badge bg-primary bg-opacity-20 text-primary small">Dynamic Baselining</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulation Scenarios Control Center -->
+            <div class="glass-card mb-4">
+                <div class="card-header-styled d-flex justify-content-between align-items-center">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-play-circle-fill text-warning me-2"></i> Simulated Organizational Log Generators & Scenarios</h5>
+                    <span class="badge bg-dark border border-secondary text-secondary">Real-Time Ingestion Control</span>
+                </div>
+                <div class="card-body-styled">
+                    <p class="text-secondary small mb-3">Simulate workplace log activity (logins, file access, data transfer volumes) to observe how per-user behavioral baselining differentiates benign activity from insider threat exfiltration.</p>
+                    
+                    <!-- Quick Preset Scenario Buttons -->
+                    <div class="d-flex flex-wrap gap-2 mb-4 pb-3 border-bottom border-secondary border-opacity-15">
+                        <button class="btn btn-sm btn-cyber-outline" onclick="runUebaScenario('normal_traffic')">
+                            <i class="bi bi-check-circle-fill text-success me-1"></i>Simulate Normal Workday
+                        </button>
+                        <button class="btn btn-sm btn-cyber-outline" style="border-color: rgba(255, 23, 68, 0.5); color: #ff1744;" onclick="runUebaScenario('exfiltration_insider')">
+                            <i class="bi bi-database-fill-down text-danger me-1"></i>Inject Threat: Salary & DB Exfiltration (Rahul)
+                        </button>
+                        <button class="btn btn-sm btn-cyber-outline" style="border-color: rgba(255, 179, 0, 0.5); color: #ffb300;" onclick="runUebaScenario('honeypot')">
+                            <i class="bi bi-radioactive text-warning me-1"></i>Inject Threat: Honeypot Trap Triggered
+                        </button>
+                        <button class="btn btn-sm btn-cyber-outline" style="border-color: rgba(112, 0, 255, 0.5); color: #b388ff;" onclick="runUebaScenario('slow_stealth')">
+                            <i class="bi bi-moon-stars-fill text-purple me-1"></i>Inject Threat: Off-Hours Stealth Egress
+                        </button>
+                        <button class="btn btn-sm btn-secondary ms-auto" id="rebaselineBtn" onclick="rebaselineUeba()">
+                            <i class="bi bi-arrow-repeat me-1"></i>Recalculate Baselines
+                        </button>
+                    </div>
+
+                    <!-- Interactive Live Telemetry Injection Form -->
+                    <div class="p-3 rounded border border-secondary border-opacity-20" style="background: rgba(15, 23, 42, 0.5);">
+                        <h6 class="fw-bold text-info mb-3 small uppercase"><i class="bi bi-sliders me-2"></i>Custom Real-Time Telemetry Event Injector</h6>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label extra-small text-secondary fw-bold">TARGET ENTITY PROFILE</label>
+                                <select class="form-select form-select-cyber form-select-sm" id="simUserSelect" onchange="updateSimFormDefaults()">
+                                    <option value="u_rahul">Rahul Verma (Marketing - Resigning/Watchlist)</option>
+                                    <option value="u_ananya">Ananya Sharma (Finance - Accountant)</option>
+                                    <option value="u_vikram">Vikram Patel (DevOps - Cloud Architect)</option>
+                                    <option value="u_neha">Neha Gupta (HR - Talent Acquisition)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label extra-small text-secondary fw-bold">TIMESTAMP (HOUR)</label>
+                                <select class="form-select form-select-cyber form-select-sm" id="simHourSelect">
+                                    <option value="14">14:00 (Standard Window)</option>
+                                    <option value="2">02:00 AM (Critical Off-Hours)</option>
+                                    <option value="23">23:00 PM (Late Night Access)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label extra-small text-secondary fw-bold">TRANSFER (MB)</label>
+                                <input type="number" class="form-control form-control-cyber form-control-sm" id="simMbInput" value="2450">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label extra-small text-secondary fw-bold">TARGET FILE ASSET</label>
+                                <select class="form-select form-select-cyber form-select-sm" id="simFileSelect">
+                                    <option value="executive_salaries_2026.xlsx">executive_salaries_2026.xlsx (Level 5)</option>
+                                    <option value="canary_honeypot_passwords.xlsx">canary_honeypot_passwords.xlsx (TRAP FILE)</option>
+                                    <option value="engineering_codebase.tar.gz">engineering_codebase.tar.gz (Level 4)</option>
+                                    <option value="general_ledger_2026.xlsx">general_ledger_2026.xlsx (Level 4)</option>
+                                    <option value="marketing_flyer.pdf">marketing_flyer.pdf (Level 1)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label extra-small text-secondary fw-bold">EGRESS VECTOR</label>
+                                <select class="form-select form-select-cyber form-select-sm" id="simDestSelect">
+                                    <option value="External USB Drive">External USB Drive</option>
+                                    <option value="Personal Google Drive">Personal Google Drive</option>
+                                    <option value="Internal Corporate Share">Internal Corporate Share</option>
+                                    <option value="Dev Server Build">Dev Server Build</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <span class="extra-small text-secondary" id="userProfileHint"><i class="bi bi-info-circle me-1"></i> Rahul Verma: Resigning / Watchlist Active</span>
+                            <button class="btn btn-sm btn-cyber" onclick="injectCustomTelemetryEvent()">
+                                <i class="bi bi-send-fill me-1"></i>Inject Telemetry Event
+                            </button>
+                        </div>
+                        <!-- Immediate Simulation Result Card -->
+                        <div id="simResultBox" class="mt-3 p-3 rounded border border-secondary border-opacity-20" style="display: none; background: rgba(8, 12, 20, 0.7);">
+                            <!-- Populated by JS -->
+                        </div>
+                    <!-- 🚀 Advanced Enterprise UEBA & Defense Suite -->
+                    <div class="mt-4 p-3 rounded border border-secondary border-opacity-20" style="background: rgba(15, 23, 42, 0.6);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold text-light m-0"><i class="bi bi-rocket-takeoff-fill text-info me-2"></i>Advanced Enterprise Analytical & Defense Suite</h6>
+                            <span class="badge bg-purple bg-opacity-20 text-purple border border-purple border-opacity-30 extra-small"><i class="bi bi-shield-lock me-1"></i>Enterprise Grade UEBA v2.0</span>
+                        </div>
+                        
+                        <ul class="nav nav-pills nav-justified mb-3 gap-2" id="advUebaTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active extra-small py-2 text-info" id="tab-nlp" data-bs-toggle="pill" data-bs-target="#panel-nlp" type="button"><i class="bi bi-chat-text-fill me-1"></i>1. NLP Sentiment</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-warning" id="tab-graph" data-bs-toggle="pill" data-bs-target="#panel-graph" type="button"><i class="bi bi-diagram-3-fill me-1"></i>2. Graph GNN</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-success" id="tab-bio" data-bs-toggle="pill" data-bs-target="#panel-bio" type="button"><i class="bi bi-keyboard-fill me-1"></i>3. Biometrics</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-primary" id="tab-entropy" data-bs-toggle="pill" data-bs-target="#panel-entropy" type="button"><i class="bi bi-file-earmark-binary-fill me-1"></i>4. Entropy & DNS</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-danger" id="tab-jit" data-bs-toggle="pill" data-bs-target="#panel-jit" type="button"><i class="bi bi-lightning-charge-fill me-1"></i>5. JIT Containment</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-light" id="tab-privacy" data-bs-toggle="pill" data-bs-target="#panel-privacy" type="button"><i class="bi bi-eye-slash-fill me-1"></i>6. Zero-Trust Privacy</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link extra-small py-2 text-info" id="tab-iptrack" data-bs-toggle="pill" data-bs-target="#panel-iptrack" type="button"><i class="bi bi-geo-alt-fill me-1"></i>7. IP Geo Track</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="advUebaTabContent">
+                            <!-- 1. NLP Sentiment Velocity -->
+                            <div class="tab-pane fade show active p-3 rounded" id="panel-nlp" style="background: rgba(8, 12, 20, 0.7);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="text-info small"><i class="bi bi-cpu me-1"></i>LLM Collaboration Sentiment Velocity Analyzer</strong>
+                                    <span class="extra-small font-monospace text-secondary">Sentiment Velocity = &Delta;S / &Delta;t</span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="extra-small text-secondary mb-1">Preset Collaboration Scenarios</label>
+                                    <select class="form-select form-select-cyber form-select-sm mb-2" id="nlpScenarioSelect" onchange="document.getElementById('nlpSnippetInput').value = this.value; analyzeNlpSentiment();">
+                                        <option value="Management is corrupt, I am interviewing next week and downloading codebase files before leaving.">🚨 Flight Risk & Data Exfiltration Notice ("Management corrupt, downloading files...")</option>
+                                        <option value="This project is terrible, worst place to work, screw this management.">⚠️ Hostile Workplace Frustration ("Worst place to work...")</option>
+                                        <option value="Completed the Q3 marketing report and updated user documentation for team.">✅ Benign Operational Interaction ("Completed Q3 report...")</option>
+                                    </select>
+                                </div>
+                                <div class="row g-2 align-items-center mb-2">
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control form-control-cyber form-control-sm" id="nlpSnippetInput" value="Management is corrupt, I am interviewing next week and downloading codebase files before leaving." oninput="analyzeNlpSentiment()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-sm btn-info w-100 py-1 extra-small fw-bold" onclick="analyzeNlpSentiment()">
+                                            <i class="bi bi-calculator me-1"></i>Analyze Velocity
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="nlpResultBox" class="extra-small text-secondary">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- 2. GNN Graph Traversal -->
+                            <div class="tab-pane fade p-3 rounded" id="panel-graph" style="background: rgba(8, 12, 20, 0.7);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="text-warning small"><i class="bi bi-diagram-3 me-1"></i>Entity Relationship Network Graph (GNN Traversal Visualizer)</strong>
+                                    <span class="badge bg-warning bg-opacity-20 text-warning extra-small"><i class="bi bi-diagram-2 me-1"></i>Live Topology Graph</span>
+                                </div>
+                                
+                                <!-- Canvas Network Graph Visualizer -->
+                                <div class="position-relative mb-2">
+                                    <canvas id="gnnGraphCanvas" width="700" height="230" class="w-100 rounded border border-secondary border-opacity-20" style="background: #080c14;"></canvas>
+                                </div>
+
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">User Entity</label>
+                                        <select class="form-select form-select-cyber form-select-sm" id="graphUserSelect" onchange="evaluateGraphTraversal()">
+                                            <option value="u_rahul">Rahul Verma (Marketing)</option>
+                                            <option value="u_ananya">Ananya Sharma (Finance)</option>
+                                            <option value="u_vikram">Vikram Patel (DevOps)</option>
+                                            <option value="u_neha">Neha Gupta (HR)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">Jump Host</label>
+                                        <select class="form-select form-select-cyber form-select-sm" id="graphHostSelect" onchange="evaluateGraphTraversal()">
+                                            <option value="host_marketing_01">host_marketing_01 (Marketing Workstation)</option>
+                                            <option value="host_finance_01">host_finance_01 (Finance Workstation)</option>
+                                            <option value="host_devops_jump">host_devops_jump (DevOps Jump Host)</option>
+                                            <option value="host_hr_01">host_hr_01 (HR Workstation)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">Target Resource</label>
+                                        <select class="form-select form-select-cyber form-select-sm" id="graphTargetSelect" onchange="evaluateGraphTraversal()">
+                                            <option value="db_payroll_core">db_payroll_core (Critical Payroll DB)</option>
+                                            <option value="share_engineering_git">share_engineering_git (Git Code Repository)</option>
+                                            <option value="share_finance_ledger">share_finance_ledger (Finance Ledger Share)</option>
+                                            <option value="share_marketing_public">share_marketing_public (Public Folder)</option>
+                                            <option value="canary_honeypot_passwords.xlsx">canary_honeypot_passwords.xlsx (Canary Trap)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-warning py-1 px-3 extra-small text-dark fw-bold" onclick="evaluateGraphTraversal()">
+                                        <i class="bi bi-diagram-2-fill me-1"></i>Simulate & Evaluate Path
+                                    </button>
+                                </div>
+                                <div id="graphResultBox" class="mt-2 extra-small text-secondary">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- 3. Behavioral Biometrics -->
+                            <div class="tab-pane fade p-3 rounded" id="panel-bio" style="background: rgba(8, 12, 20, 0.7);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="text-success small"><i class="bi bi-fingerprint me-1"></i>Behavioral Biometrics (Keystroke & Mouse Dynamics)</strong>
+                                    <span class="badge bg-danger bg-opacity-20 text-danger extra-small">Threshold: &gt; 3.5&sigma; MFA Challenge</span>
+                                </div>
+                                <div class="row g-3 mb-2">
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">Flight Time (ms)</label>
+                                        <input type="number" class="form-control form-control-cyber form-control-sm" id="bioFlightInput" value="185">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">Dwell Time (ms)</label>
+                                        <input type="number" class="form-control form-control-cyber form-control-sm" id="bioDwellInput" value="130">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="extra-small text-secondary">Mouse Jitter (&sigma;)</label>
+                                        <input type="number" class="form-control form-control-cyber form-control-sm" id="bioJitterInput" value="28">
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-success py-1 px-3 extra-small fw-bold" onclick="verifyBiometrics()">
+                                        <i class="bi bi-shield-check me-1"></i>Verify Biometric Rhythms
+                                    </button>
+                                </div>
+                                <div id="bioResultBox" class="mt-2 extra-small text-secondary">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- 4. Entropy & DNS Tunneling -->
+                            <div class="tab-pane fade p-3 rounded" id="panel-entropy" style="background: rgba(8, 12, 20, 0.7);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="text-primary small"><i class="bi bi-file-earmark-lock me-1"></i>Shannon Entropy & DNS Tunneling Inspector</strong>
+                                    <span class="extra-small font-monospace text-secondary">H(X) = -&sum; P(x) log<sub>2</sub> P(x)</span>
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-6">
+                                        <label class="extra-small text-secondary">Egress Payload Data / Hex</label>
+                                        <input type="text" class="form-control form-control-cyber form-control-sm" id="entropyPayloadInput" value="7zXZ\x00\x00\x04\xe6\xd5\x5b\x02\x00\x21\x01\x16\x00">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="extra-small text-secondary">Outbound DNS Domain Query</label>
+                                        <input type="text" class="form-control form-control-cyber form-control-sm" id="dnsQueryInput" value="chunk1.exfil.attacker-c2-domain.com">
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-primary py-1 px-3 extra-small fw-bold" onclick="inspectEntropyAndDns()">
+                                        <i class="bi bi-search me-1"></i>Inspect Payload & DNS
+                                    </button>
+                                </div>
+                                <div id="entropyResultBox" class="mt-2 extra-small text-secondary">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- 5. JIT Micro-Containment -->
+                            <div class="tab-pane fade p-3 rounded" id="panel-jit" style="background: rgba(8, 12, 20, 0.7);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <strong class="text-danger small"><i class="bi bi-lightning-charge me-1"></i>Just-In-Time (JIT) Dynamic Deprivileging (Micro-Containment)</strong>
+                                    <span class="badge bg-danger bg-opacity-20 text-danger extra-small">Automated State Machine</span>
+                                </div>
+                                <
